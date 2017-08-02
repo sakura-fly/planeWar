@@ -8,4 +8,10 @@ public class Duang {
 		int y = e.getY() + e.getHight() / 2;
 		return x > h.getX() && y > h.getY() && x < (h.getX() + h.getWidth()) && y < (h.getY() + h.getHight());
 	}
+	
+	public void yeal(int s){
+		
+	}
+	
+	
 }

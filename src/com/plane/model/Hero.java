@@ -6,6 +6,8 @@ import com.plane.layout.Layout;
 
 public class Hero extends Fly {
 	
+	public static Hero h;
+	
 	protected int index = 0;
 
 	int life = 3;
@@ -13,6 +15,7 @@ public class Hero extends Fly {
 	protected BufferedImage[] images = {
 
 	};
+	private int score;
 
 	public Hero(BufferedImage img, BufferedImage hero0, BufferedImage hero1) {
 		this.image = img;
@@ -22,6 +25,43 @@ public class Hero extends Fly {
 
 		x = Layout.WIDTH / 2 - (width / 2);
 		y = Layout.HIGHT - 2 * hight;
+		h = this;
+	}
+	
+	public static Hero getH() {
+		return h;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
+	public int getDoublefire() {
+		return doublefire;
+	}
+
+	public void setDoublefire(int doublefire) {
+		this.doublefire = doublefire;
+	}
+
+	public BufferedImage[] getImages() {
+		return images;
+	}
+
+	public void setImages(BufferedImage[] images) {
+		this.images = images;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	@Override

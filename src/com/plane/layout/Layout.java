@@ -15,6 +15,8 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 
+import com.plane.da.Duang;
+import com.plane.model.Award;
 import com.plane.model.Bee;
 import com.plane.model.Bullet;
 import com.plane.model.Fly;
@@ -45,6 +47,8 @@ public class Layout extends JLabel {
 	private List<Fly> flys = new ArrayList<>();
 	private List<Bullet> bullets = new ArrayList<>();
 	private Hero h;
+	
+	private Duang d = new Duang(); 
 
 	private int v = 10;
 
@@ -124,6 +128,7 @@ public class Layout extends JLabel {
 				index++;
 				// System.out.println("flys num is : " + flys.size());
 //				System.out.println("bullets num is : " + bullets.size());
+				System.out.println("score:" + h.getScore());
 			}
 
 			
@@ -133,13 +138,25 @@ public class Layout extends JLabel {
 	}
 
 	private void bDuangF() {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i< bullets.size(); i++){
+			Bullet b = bullets.get(i);
+			for(int j = 0; j< flys.size(); j++){
+				Fly f = flys.get(j);
+				if(d.daung(f, b)){
+					if(Enum.class.isInstance(f)){
+						h.setScore(h.getScore() + ((Plane)f).getScore());
+					} else if(Award.class.isInstance(f)) {
+						System.out.println("bee");
+						
+					}
+				}
+			}
+		}
 	}
 	
 	
 	private void bulletAction() {
-		if (index % 20 == 0) {
+		if (index % 1 == 0) {
 			Bullet b = new Bullet(bullet);
 			b.setX(h.getX() + h.getWidth() / 2 - b.getWidth() / 2);
 			b.setY(h.getY());

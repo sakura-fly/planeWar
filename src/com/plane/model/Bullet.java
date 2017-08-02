@@ -6,6 +6,7 @@ public class Bullet extends Fly{
 	
 	
 	public Bullet(BufferedImage img) {
+		ySpeed = 20;
 		this.image = img;
 		this.width = img.getWidth();
 		this.hight = img.getHeight();
