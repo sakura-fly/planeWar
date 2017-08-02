@@ -89,10 +89,17 @@ public class Layout extends JLabel {
 		g.drawImage(backgroud, 0, 0, null);
 		paintHero(g);
 		paintFlys(g);
+		paintButtlet(g);
+	}
+
+	private void paintButtlet(Graphics g) {
+		for (Fly f : bullets) {
+			g.drawImage(f.getImage(), f.getX(), f.getY(), null);
+		}
 	}
 
 	private void paintFlys(Graphics g) {
-		for(Fly f : flys){
+		for (Fly f : flys) {
 			g.drawImage(f.getImage(), f.getX(), f.getY(), null);
 		}
 	}
@@ -112,12 +119,33 @@ public class Layout extends JLabel {
 				repaint();
 				flyAction();
 				stepAction();
+				bulletAction();
+				bDuangF();
 				index++;
-				System.out.println("flys num is : " + flys.size());
+				// System.out.println("flys num is : " + flys.size());
+//				System.out.println("bullets num is : " + bullets.size());
 			}
+
+			
 
 		}, v, v);
 
+	}
+
+	private void bDuangF() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	private void bulletAction() {
+		if (index % 20 == 0) {
+			Bullet b = new Bullet(bullet);
+			b.setX(h.getX() + h.getWidth() / 2 - b.getWidth() / 2);
+			b.setY(h.getY());
+			bullets.add(b);
+
+		}
 	}
 
 	private void flyAction() {
@@ -127,9 +155,19 @@ public class Layout extends JLabel {
 	}
 
 	private void stepAction() {
-		for (Fly f : flys) {
+		// 敌对
+		for (int i = 0; i < flys.size(); i++) {
+			Fly f = flys.get(i);
 			f.step();
-			System.out.println("f" + f.getX() + "," + f.getY());
+			// System.out.println("f" + f.getX() + "," + f.getY());
+			out(f);
+		}
+		// zidan
+		for (int i = 0; i < bullets.size(); i++) {
+			Bullet f = bullets.get(i);
+			f.step();
+//			 System.out.println("f " + f.getX() + "," + f.getY());
+			out(f);
 		}
 		h.step();
 	}
@@ -146,6 +184,18 @@ public class Layout extends JLabel {
 			return new Plane(airplane);
 		}
 
+	}
+
+	private void out(Bullet b) {
+		if (b.getY() < 0) {
+			bullets.remove(b);
+		}
+	}
+
+	private void out(Fly f) {
+		if (f.getY() > HIGHT + f.getWidth()) {
+			flys.remove(f);
+		}
 	}
 
 }
