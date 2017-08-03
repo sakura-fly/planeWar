@@ -19,6 +19,7 @@ import com.plane.da.Duang;
 import com.plane.model.Award;
 import com.plane.model.Bee;
 import com.plane.model.Bullet;
+import com.plane.model.Enemy;
 import com.plane.model.Fly;
 import com.plane.model.Hero;
 import com.plane.model.Plane;
@@ -47,8 +48,8 @@ public class Layout extends JLabel {
 	private List<Fly> flys = new ArrayList<>();
 	private List<Bullet> bullets = new ArrayList<>();
 	private Hero h;
-	
-	private Duang d = new Duang(); 
+
+	private Duang d = new Duang();
 
 	private int v = 10;
 
@@ -127,34 +128,36 @@ public class Layout extends JLabel {
 				bDuangF();
 				index++;
 				// System.out.println("flys num is : " + flys.size());
-//				System.out.println("bullets num is : " + bullets.size());
+				// System.out.println("bullets num is : " + bullets.size());
 				System.out.println("score:" + h.getScore());
 			}
-
-			
 
 		}, v, v);
 
 	}
 
 	private void bDuangF() {
-		for(int i = 0; i< bullets.size(); i++){
+		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
-			for(int j = 0; j< flys.size(); j++){
+			for (int j = 0; j < flys.size(); j++) {
 				Fly f = flys.get(j);
-				if(d.daung(f, b)){
-					if(Enum.class.isInstance(f)){
-						h.setScore(h.getScore() + ((Plane)f).getScore());
-					} else if(Award.class.isInstance(f)) {
-						System.out.println("bee");
+				if (d.daung(f, b)) {
+					bullets.remove(b);
+					flys.remove(f);
+					// System.out.println("daung");
+					if (Enemy.class.isInstance(f)) {
+						// System.out.println("plane");
+						h.setScore(h.getScore() + ((Plane) f).getScore());
 						
+					} else if (Award.class.isInstance(f)) {
+						// System.out.println("bee");
+
 					}
 				}
 			}
 		}
 	}
-	
-	
+
 	private void bulletAction() {
 		if (index % 1 == 0) {
 			Bullet b = new Bullet(bullet);
@@ -183,7 +186,7 @@ public class Layout extends JLabel {
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet f = bullets.get(i);
 			f.step();
-//			 System.out.println("f " + f.getX() + "," + f.getY());
+			// System.out.println("f " + f.getX() + "," + f.getY());
 			out(f);
 		}
 		h.step();
